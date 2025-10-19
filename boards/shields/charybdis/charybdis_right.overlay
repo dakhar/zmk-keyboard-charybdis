@@ -21,23 +21,12 @@
 	zmk,battery = &vbatt;
 };
 
-/ {
-    vbatt: vbatt {
-		compatible = "zmk,battery-nrf-vddh";
-    };
-};
-
-&trackball_split {
-    device = <&trackball>;
+&trackball_listener {
+	status = "okay";
+  	device = <&trackball>;
 };
 
 /{
-  	trackball_listener {
-	  status = "okay";
-  	  compatible = "zmk,input-listener";
-  	  device = <&trackball>;
-  	};
-
     vbatt: vbatt {
 	    compatible = "zmk,battery-nrf-vddh";
     };
