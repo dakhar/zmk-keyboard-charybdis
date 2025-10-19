@@ -4,7 +4,6 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/ext_power.h>
-#include <zmk/pointing.h>
 #include <input/processors.dtsi>
 #include <behaviors/mouse_keys.dtsi>
 
