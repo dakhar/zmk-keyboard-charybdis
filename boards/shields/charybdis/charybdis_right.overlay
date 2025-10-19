@@ -1,4 +1,5 @@
 #include "charybdis.dtsi"
+#include "driver_pmw3610.dtsi"
 #include <dt-bindings/zmk/input_transform.h>
 
 &kscan0 {
