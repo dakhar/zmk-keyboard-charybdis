@@ -33,8 +33,6 @@ endif
 ###
 if SHIELD_CHARYBDIS_DONGLE || SHIELD_CHARYBDIS_RIGHT || SHIELD_CHARYBDIS_RIGHT_PERIPH
 
-config ZMK_POINTING
-    default y
 config SPI
     default y
 config INPUT
