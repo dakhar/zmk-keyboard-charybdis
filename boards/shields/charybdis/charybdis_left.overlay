@@ -15,6 +15,9 @@
 	zmk,battery = &vbatt;
 }; 
 
+&trackball_split {
+    status = "disabled";
+};
 
 / {
     vbatt: vbatt {
