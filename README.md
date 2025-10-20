@@ -1,4 +1,10 @@
 # ZMK Charybdis firmware
-## Charybdis 4x6
 
-This repository contains ZMK Charybdis firmware for keyboard with dongle and not.
+## Intro
+This repository contains ZMK Charybdis 4x6 firmware for: 
+- Keyboard without dongle (BT + USB)
+- Keyboard with dongle (BT + USB)
+
+## Keymaps & Layers
+
+![keymap images](keymap-drawer/charybdis.svg)

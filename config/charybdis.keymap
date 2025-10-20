@@ -52,13 +52,6 @@
     };
 
     behaviors {    
-        
-        td_lclk_ctrl: tap_dance_lclk {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&mkp LCLK>, <&kp LCTRL>;
-        };
 
         bspc_del: backspace_delete {
             compatible = "zmk,behavior-mod-morph";
@@ -119,7 +112,7 @@
 &kp LSHIFT  &kp A       &kp S       &kp D       &kp F         &kp G                       &kp H       &kp J       &kp K       &kp L       &kp SEMICOLON    &kp APOSTROPHE
 &kp LCTRL   &kp Z       &kp X       &kp C       &kp V         &kp B                       &kp N       &sol_sof    &kp COMMA   &kp DOT     &sl_bsl          &kp RSHIFT
                                     &kp TAB     &kp SPACE     &mo 1                       &kp ENTER   &mo 2       
-                                                &td_lclk_ctrl &kp LALT                    &bspc_del
+                                                &mkp LCLK     &kp LALT                    &bspc_del
             >;
         };
 

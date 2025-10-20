@@ -1,0 +1,364 @@
+name: Reusable user config build
+
+on:
+  workflow_call:
+    inputs:
+      build_matrix_path:
+        description: "Path to the build matrix file"
+        default: "build.yaml"
+        required: false
+        type: string
+      config_path:
+        description: "Path to the config directory"
+        default: "config"
+        required: false
+        type: string
+      fallback_binary:
+        description: "Fallback binary format, if no *.uf2 file was built"
+        default: "bin"
+        required: false
+        type: string
+      archive_name:
+        description: "Archive output file name"
+        default: "firmware"
+        required: false
+        type: string
+      drawer_version:
+        description: 'Install keymap-drawer from pypi using the specified version, use empty for latest pypi release (default)'
+        type: string
+      drawer_branch:
+        description: 'Install keymap-drawer from a git branch, use empty to install from a pypi release obeying `drawer_version` (default)'
+        type: string
+      drawer_repo:
+        description: 'Install keymap-drawer from a different git remote, primarily for testing changes using a keymap-drawer fork. Ignored if `drawer_branch` is unset/empty.'
+        type: string
+        default: 'https://github.com/caksoylar/keymap-drawer.git'
+      fail_on_draw_error:
+        description: 'Fail the action if an error occurs during parse/draw'
+        type: boolean
+      debug_draw:
+        description: 'Enable debug draw mode'
+        type: boolean
+      draws_folder:
+        description: 'Output folder for SVG and YAML files'
+        type: string
+        default: 'keymap-drawer'
+      drawer_config_path:
+        description: 'Path to the keymap-drawer configuration file, ignored if non-existent'
+        type: string
+        default: 'keymap_drawer.config.yaml'
+      keymap_patterns:
+        description: 'Path specification for keymaps to be parsed'
+        type: string
+        default: '*.keymap'
+      drawer_parse_args:
+        description: "Map of keyboard names to extra `keymap parse` args, e.g. `corne:'--layer-names Def Lwr Rse Fun'`"
+        type: string
+      draw_args:
+        description: "Map of keyboard names to extra `keymap draw` args, e.g. `corne:'-k corne_rotated -l LAYOUT_split_3x5_3'`"
+        type: string
+      extra_keymap_yaml:
+        description: "Map of keyboard names to extra keymap YAMLs to be passed to `keymap draw` after the parsed one, e.g. `corne:'keymap-drawer/extra_combos.yaml'`"
+        type: string
+      json_path:
+        description: 'Path containing <keymap>.json physical layout description files, ignored if non-existent'
+        type: string
+        default: 'config'
+      draw_destination:
+        description: 'Add the output files to a commit, as artifacts or both, values: `commit`, `artifact`, `both`'
+        type: string
+        default: 'commit'
+      draw_commit_message:
+        description: 'Commit message for updated images. Ignored if `amend_commit` is `true`.'
+        type: string
+        default: 'keymap-drawer render'
+      draw_amend_commit:
+        description: 'Whether to amend the last commit instead of creating a new one. Make sure you understand the implications of rewriting the branch history if you use this option!'
+        type: boolean
+
+jobs:
+  matrix:
+    runs-on: ubuntu-22.04
+    name: Fetch Build Keyboards
+    outputs:
+      build_matrix: ${{ env.build_matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch Build Matrix
+        run: |
+          echo "build_matrix=$(yq -oj -I0 '${{ inputs.build_matrix_path }}')" >> $GITHUB_ENV
+          yq -oj "${{ inputs.build_matrix_path }}"
+
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    needs: matrix
+    name: Build
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.matrix.outputs.build_matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create build directory
+        run: |
+          echo "build_dir=$(mktemp -d)" >> $GITHUB_ENV
+      
+      - name: Copy keymaps to module directory
+        run: cp "config/${{ inputs.keymap_patterns }}" "boards/shields/charybdis/"
+
+      - name: Prepare variables
+        shell: sh -x {0}
+        env:
+          board: ${{ matrix.board }}
+          shield: ${{ matrix.shield }}
+          artifact_name: ${{ matrix.artifact-name }}
+          snippet: ${{ matrix.snippet }}
+        run: |
+          if [ -e zephyr/module.yml ]; then
+            export zmk_load_arg=" -DZMK_EXTRA_MODULES='${GITHUB_WORKSPACE}'"
+            new_tmp_dir="${TMPDIR:-/tmp}/zmk-config"
+            mkdir -p "${new_tmp_dir}"
+            echo "base_dir=${new_tmp_dir}" >> $GITHUB_ENV
+          else
+            echo "base_dir=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+          fi
+
+          if [ -n "${snippet}" ]; then
+            extra_west_args="-S \"${snippet}\""
+          fi
+
+          echo "zephyr_version=${ZEPHYR_VERSION}" >> $GITHUB_ENV
+          echo "extra_west_args=${extra_west_args}" >> $GITHUB_ENV
+          echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV
+          echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
+          echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
+
+      - name: Copy config files to isolated temporary directory
+        run: |
+          if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
+            mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
+            cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
+          fi
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        continue-on-error: true
+        env:
+          cache_name: cache-zephyr-${{ env.zephyr_version }}-modules
+        with:
+          path: |
+            ${{ env.base_dir }}/modules/
+            ${{ env.base_dir }}/tools/
+            ${{ env.base_dir }}/zephyr/
+            ${{ env.base_dir }}/bootloader/
+            ${{ env.base_dir }}/zmk/
+          key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('**/west.yml', '**/build.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache_name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: West Init
+        working-directory: ${{ env.base_dir }}
+        run: west init -l "${{ env.base_dir }}/${{ inputs.config_path }}"
+
+      - name: West Update
+        working-directory: ${{ env.base_dir }}
+        run: west update --fetch-opt=--filter=tree:0
+
+      - name: West Zephyr export
+        working-directory: ${{ env.base_dir }}
+        run: west zephyr-export
+
+      - name: West Build (${{ env.display_name }})
+        working-directory: ${{ env.base_dir }}
+        shell: sh -x {0}
+        run: west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG=${{ env.base_dir }}/${{ inputs.config_path }} ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
+
+      - name: ${{ env.display_name }} Kconfig file
+        run: |
+          if [ -f "${{ env.build_dir }}/zephyr/.config" ]
+          then
+            grep -v -e "^#" -e "^$" "${{ env.build_dir }}/zephyr/.config" | sort
+          else
+            echo "No Kconfig output"
+          fi
+        if: ${{ !cancelled() }}
+
+      - name: ${{ env.display_name }} Devicetree file
+        run: |
+          if [ -f "${{ env.build_dir }}/zephyr/zephyr.dts" ]
+          then
+            cat "${{ env.build_dir }}/zephyr/zephyr.dts"
+          elif [ -f "${{ env.build_dir }}/zephyr/zephyr.dts.pre" ]
+          then
+            cat -s "${{ env.build_dir }}/zephyr/zephyr.dts.pre"
+          else
+            echo "No Devicetree output"
+          fi
+        if: ${{ !cancelled() }}
+
+      - name: Rename artifacts
+        shell: sh -x {0}
+        run: |
+          mkdir "${{ env.build_dir }}/artifacts"
+          if [ -f "${{ env.build_dir }}/zephyr/zmk.uf2" ]
+          then
+            cp "${{ env.build_dir }}/zephyr/zmk.uf2" "${{ env.build_dir }}/artifacts/${{ env.artifact_name }}.uf2"
+          elif [ -f "${{ env.build_dir }}/zephyr/zmk.${{ inputs.fallback_binary }}" ]
+          then
+            cp "${{ env.build_dir }}/zephyr/zmk.${{ inputs.fallback_binary }}" "${{ env.build_dir }}/artifacts/${{ env.artifact_name }}.${{ inputs.fallback_binary }}"
+          fi
+
+      - name: Install keymap-drawer (pypi)
+        if: inputs.drawer_branch == ''
+        run: |
+          [ -n "${{ inputs.drawer_version }}" ] && version="==${{ inputs.drawer_version }}" || version=""
+          pipx install "keymap-drawer$version"
+
+      - name: Install keymap-drawer (git)
+        if: inputs.drawer_branch != ''
+        run: pipx install "git+${{ inputs.drawer_repo }}@${{ inputs.drawer_branch }}"
+      
+      - name: Draw keymaps
+        id: draw
+        continue-on-error: ${{ !inputs.fail_on_draw_error }}
+        run: |
+          [ "${{ inputs.debug_draw }}" == "true" ] && set -x
+
+          get_args() {
+              local keyboard=$2
+              local output=()
+
+              eval set -- "$1"
+              for arg; do
+                  local key=${arg%%:*}
+                  local val=${arg#*:}
+                  if [ "$key" = "$keyboard" ]; then
+                      output+=("$val")
+                      break
+                  fi
+              done
+              echo "${output[@]}"
+          }
+
+          check_for_layout_args() {
+              local args=("$@")
+
+              for val in "-j" "--qmk-info-json" "-k" "--qmk-keyboard" "-z" "--zmk-keyboard" "-d" "--dts-layout" "--ortho-layout" "-n" "--cols-thumbs-notation"; do
+                  for item in "${args[@]}"; do
+                      if [ "$val" = "$item" ]; then return 0; fi
+                  done
+              done
+
+              return 1
+          }
+
+          shopt -s nullglob extglob
+
+          artifacts=()
+          error_occurred=0
+          mkdir -p "${{ inputs.draws_folder }}"
+
+          config_path="${{ inputs.drawer_config_path }}"
+          [ -e "$config_path" ] && config_arg=(-c "$config_path") || config_arg=()
+          echo "INFO: using config args:" "${config_arg[@]}"
+
+          [ "${{ inputs.debug_mode }}" == "true" ] && debug_arg="-d" || debug_arg=""
+
+          while read -r keymap_file ; do
+              keyboard=$(basename -s .keymap "$keymap_file")
+              echo "INFO: drawing for $keyboard"
+
+              IFS=" " read -r -a parse_args        <<< "$(get_args "${{ inputs.drawer_parse_args }}" "$keyboard")"
+              echo "INFO:   got extra parse args:"       "${parse_args[@]}"
+              IFS=" " read -r -a draw_args         <<< "$(get_args "${{ inputs.draw_args }}" "$keyboard")"
+              echo "INFO:   got extra draw args:"        "${draw_args[@]}"
+              IFS=" " read -r -a extra_keymap_yaml <<< "$(get_args "${{ inputs.extra_keymap_yaml }}" "$keyboard")"
+              echo "INFO:   got extra keymap YAML args:" "${extra_keymap_yaml[@]}"
+
+              json_path="${{ inputs.json_path }}"
+              if check_for_layout_args "${draw_args[@]}"; then
+                  echo "INFO:   found layout specifiers in draw args"
+              elif [ -n "$json_path" ] && [ -f "$json_path/${keyboard}.json" ]; then
+                  echo "INFO:   found $json_path/${keyboard}.json";
+                  draw_args+=(-j "$json_path/${keyboard}.json")
+              else
+                  dts_candidates=({,*/}boards/*/*/${keyboard}-layout{,s}.dtsi)
+                  if [ ${#dts_candidates[@]} -gt 0 ]; then
+                      echo "INFO:   found ${dts_candidates[0]}";
+                      draw_args+=(-d "${dts_candidates[0]}")
+                  fi
+              fi
+
+              tmp_yaml=$(mktemp)
+              tmp_svg=$(mktemp)
+
+              if keymap $debug_arg "${config_arg[@]}" parse -z "$keymap_file" "${parse_args[@]}" >"$tmp_yaml"; then
+                  mv "$tmp_yaml" "${{ inputs.draws_folder }}/$keyboard.yaml"
+                  artifacts+=("${{ inputs.draws_folder }}/$keyboard.yaml")
+              else
+                  echo "ERROR: parsing failed for $keyboard!"
+                  error_occurred=1
+                  continue
+              fi
+
+              if keymap $debug_arg "${config_arg[@]}" draw "${{ inputs.draws_folder }}/$keyboard.yaml" "${extra_keymap_yaml[@]}" "${draw_args[@]}" >"$tmp_svg"; then
+                  cp "$tmp_svg" "${{ env.build_dir }}/artifacts/$keyboard.svg"
+                  mv "$tmp_svg" "${{ inputs.draws_folder }}/$keyboard.svg"
+                  artifacts+=("${{ inputs.draws_folder }}/$keyboard.svg")
+              else
+                  echo "ERROR: drawing failed for $keyboard!"
+                  error_occurred=1
+              fi
+          done < <(find ./config -type f -name ${{ inputs.keymap_patterns }})
+
+          joined_artifacts=$(printf '"%s", ' "${artifacts[@]}")
+          printf 'artifacts=[%s]\n' "${joined_artifacts%, }" >> "$GITHUB_OUTPUT"
+
+          if [ $error_occurred -eq 1 ]; then
+              exit 1
+          fi
+      
+      - name: Get last commit message
+        id: last_commit_message
+        if: inputs.draw_amend_commit == true && (inputs.draw_destination == 'commit' || inputs.draw_destination == 'both')
+        run: |
+          echo "msg=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+
+      - name: Commit updated images
+        if: ( inputs.draw_destination == 'commit' || inputs.draw_destination == 'both' )
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: '${{ inputs.draws_folder }}/*.svg ${{ inputs.draws_folder }}/*.yaml'
+          # So the previous commit is amended instead of creating a new one when desired
+          # See:
+          # - https://github.com/stefanzweifel/git-auto-commit-action#using---amend-and---no-edit-as-commit-options
+          # - https://github.com/stefanzweifel/git-auto-commit-action/issues/159#issuecomment-845347950
+          # - https://github.com/actions/checkout
+          commit_message: '${{ (inputs.draw_amend_commit == true && steps.last_commit_message.outputs.msg) || inputs.draw_commit_message }}'
+          commit_options: "${{ (inputs.draw_amend_commit == true && '--amend --no-edit') || '' }}"
+          push_options: "${{ (inputs.draw_amend_commit == true && '--force-with-lease') || '' }}"
+          skip_fetch: ${{ inputs.draw_amend_commit == true }}
+      - name: Archive (${{ env.display_name }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact-${{ env.artifact_name }}
+          path: ${{ env.build_dir }}/artifacts
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Merge Output Artifacts
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: ${{ inputs.archive_name }}
+          pattern: artifact-*
+          delete-merged: true
