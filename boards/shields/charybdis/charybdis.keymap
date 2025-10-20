@@ -67,7 +67,7 @@
             mods = <(MOD_LALT)>;
         };
 
-        bspc_del: solid_soft {
+        bspc_del: backspace_delete {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp BSPC>, <&kp DEL>;
