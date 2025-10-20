@@ -1,5 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-#include "charybdis_4x6-layouts.dtsi"
+#include "charybdis4x6-layouts.dtsi"
 
 / {
     kscan0: kscan {
@@ -25,7 +25,7 @@
 
     chosen: chosen {
         zmk,kscan = &kscan0;
-        zmk,physical-layout = &charybdis_physical_layout;
+        zmk,physical-layout = &charybdis4x6_physical_layout;
     };
     
     default_transform: keymap_transform_0 {

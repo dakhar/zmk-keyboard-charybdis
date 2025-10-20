@@ -1,5 +1,5 @@
 file_format: "1"
-id: charybdis_4x6
+id: charybdis4x6
 name: Charybdis 4x6
 type: shield
 url: https://github.com/Bastardkb/Charybdis/
@@ -9,5 +9,5 @@ features:
   - studio
   - pointer
 siblings:
-  - charybdis_4x6_left
-  - charybdis_4x6_right
+  - charybdis4x6_left
+  - charybdis4x6_right

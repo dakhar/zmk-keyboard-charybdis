@@ -1,4 +1,4 @@
-#include "charybdis_4x6.dtsi"
+#include "charybdis4x6.dtsi"
 #include "driver_pmw3610.dtsi"
 #include <dt-bindings/zmk/input_transform.h>
 
@@ -17,13 +17,7 @@
     col-offset = <6>;
 };
 
-&trackball_split {
-    device = <&trackball>;
-};
-
-/{
-  	trackball_listener {
-  	  compatible = "zmk,input-listener";
-  	  device = <&trackball>;
-  	};
+&trackball_listener {
+	status = "okay";
+  	device = <&trackball>;
 };

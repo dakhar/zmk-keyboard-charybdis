@@ -1,4 +1,4 @@
-#include "charybdis_4x6.dtsi"
+#include "charybdis4x6.dtsi"
 
 &kscan0 {
 	col-gpios
