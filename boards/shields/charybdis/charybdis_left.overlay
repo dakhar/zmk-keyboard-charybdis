@@ -11,16 +11,6 @@
 		;
 };
 
-&chosen {
-	zmk,battery = &vbatt;
-}; 
-
 &trackball_split {
     status = "disabled";
-};
-
-/ {
-    vbatt: vbatt {
-	    compatible = "zmk,battery-nrf-vddh";
-    };
 };

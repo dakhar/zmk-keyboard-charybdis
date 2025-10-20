@@ -17,17 +17,7 @@
     col-offset = <6>;
 };
 
-&chosen {
-	zmk,battery = &vbatt;
-};
-
 &trackball_listener {
 	status = "okay";
   	device = <&trackball>;
-};
-
-/{
-    vbatt: vbatt {
-	    compatible = "zmk,battery-nrf-vddh";
-    };
 };

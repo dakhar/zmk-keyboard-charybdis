@@ -17,10 +17,6 @@
     col-offset = <6>;
 };
 
-&chosen {
-	zmk,battery = &vbatt;
-};
-
 &trackball_split {
     device = <&trackball>;
 };
@@ -30,8 +26,4 @@
   	  compatible = "zmk,input-listener";
   	  device = <&trackball>;
   	};
-
-    vbatt: vbatt {
-	    compatible = "zmk,battery-nrf-vddh";
-    };
 };
