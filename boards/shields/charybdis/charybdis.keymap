@@ -71,7 +71,7 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp BSPC>, <&kp DEL>;
-            mods = <(MOD_RSFTL|MOD_LSFTL)>;
+            mods = <(MOD_RSFT|MOD_LSFT)>;
         };
 
         sl_bsl: slash_backslash {
