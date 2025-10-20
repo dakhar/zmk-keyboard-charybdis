@@ -59,13 +59,6 @@
             tapping-term-ms = <200>;
             bindings = <&mkp LCLK>, <&kp LCTRL>;
         };
-        
-        sol_sof: solid_soft {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp M>, <&kp RBKT>;
-            mods = <(MOD_LALT)>;
-        };
 
         bspc_del: backspace_delete {
             compatible = "zmk,behavior-mod-morph";
@@ -78,15 +71,18 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp SLASH>, <&kp BACKSLASH>;
-            mods = <(MOD_LALT)>;
+            mods = <(MOD_RSFT|MOD_LALT)>;
+            keep-mods = <(MOD_RSFT)>;
         };
-
-        gresc: grave_escape {
+        
+        sol_sof: solid_soft {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp ESC>, <&kp GRAVE>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            bindings = <&kp M>, <&kp RBKT>;
+            mods = <(MOD_RSFT|MOD_LALT)>;
+            keep-mods = <(MOD_RSFT)>;
         };
+
         hmr: hmr {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&kp>, <&kp>;
@@ -123,7 +119,7 @@
 &kp LSHIFT  &kp A       &kp S       &kp D       &kp F         &kp G                       &kp H       &kp J       &kp K       &kp L       &kp SEMICOLON    &kp APOSTROPHE
 &kp LCTRL   &kp Z       &kp X       &kp C       &kp V         &kp B                       &kp N       &sol_sof    &kp COMMA   &kp DOT     &sl_bsl          &kp RSHIFT
                                     &kp TAB     &kp SPACE     &mo 1                       &kp ENTER   &mo 2       
-                                                &td_lclk_ctrl &LALT                       &bspc_del
+                                                &td_lclk_ctrl &kp LALT                    &bspc_del
             >;
         };
 
@@ -143,7 +139,7 @@
             display-name = "Navi-Fun";
             bindings = <
 &kp PRINTSCREEN     &kp F1          &kp F2      &kp F3      &kp F4          &kp F5              &kp F6    &kp F7            &kp F8      &kp F9      &kp F10     &kp F11
-&kp C_NEXT          &kp C_VOL_UP    &kp C_RW    &kp C_FF    &trans          &trans              &trans    &trans            &trans      &trans      &trans      &kp F12
+&kp C_NEXT          &kp C_VOL_UP    &kp C_RW    &kp C_FF    &trans          &trans              &trans    &trans            &kp INS     &trans      &trans      &kp F12
 &kp C_PLAY_PAUSE    &kp C_MUTE      &kp LEFT    &kp UP      &kp DOWN        &kp RIGHT           &trans    &kp RSHIFT        &kp RCTRL   &kp RALT    &kp RGUI    &trans
 &kp C_PREVIOUS      &kp C_VOL_DN    &kp HOME    &kp PAGE_UP &kp PAGE_DOWN   &kp END             &trans    &trans            &trans      &trans      &trans      &trans
                                                 &trans      &trans          &trans              &trans    &trans
