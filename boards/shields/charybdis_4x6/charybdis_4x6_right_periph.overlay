@@ -1,4 +1,6 @@
-#include "charybdis.dtsi"
+#include "charybdis_4x6.dtsi"
+#include "driver_pmw3610.dtsi"
+#include <dt-bindings/zmk/input_transform.h>
 
 &kscan0 {
 	col-gpios
@@ -11,14 +13,17 @@
 		;
 };
 
-&mock_kscan {
-    status = "okay";
+&default_transform { // Offset of 6 because the left side has 6 columns
+    col-offset = <6>;
 };
 
-&chosen {
-    zmk,kscan = &mock_kscan;
-}; 
+&trackball_split {
+    device = <&trackball>;
+};
 
-&trackball_listener {
-    status = "okay";
+/{
+  	trackball_listener {
+  	  compatible = "zmk,input-listener";
+  	  device = <&trackball>;
+  	};
 };

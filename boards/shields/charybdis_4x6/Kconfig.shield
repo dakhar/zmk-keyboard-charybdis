@@ -1,11 +1,11 @@
-config SHIELD_CHARYBDIS_LEFT
+config SHIELD_CHARYBDIS_4x6_LEFT
 	def_bool $(shields_list_contains,charybdis_left)
 
-config SHIELD_CHARYBDIS_RIGHT
+config SHIELD_CHARYBDIS_4x6_RIGHT
 	def_bool $(shields_list_contains,charybdis_right)
 
-config SHIELD_CHARYBDIS_RIGHT_PERIPH
+config SHIELD_CHARYBDIS_4x6_RIGHT_PERIPH
 	def_bool $(shields_list_contains,charybdis_right_periph)
 
-config SHIELD_CHARYBDIS_DONGLE
+config SHIELD_CHARYBDIS_4x6_DONGLE
 	def_bool $(shields_list_contains,charybdis_dongle)

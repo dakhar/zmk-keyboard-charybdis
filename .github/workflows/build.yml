@@ -13,6 +13,8 @@ jobs:
   
   keymap_images:
     needs: build
+    with:
+      keymap_patterns: 'boards/shields/*/*.keymap'
     permissions:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yml
