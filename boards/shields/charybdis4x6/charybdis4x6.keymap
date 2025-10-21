@@ -63,7 +63,7 @@
         };
 
         combo_alt-tab {
-            timeout-ms = <200>;
+            timeout-ms = <500>;
             slow-release;
             bindings = <&alt_tabm>;
             key-positions = <54 48>;
@@ -81,6 +81,15 @@
                 , <&macro_tap &kp TAB>
                 , <&macro_pause_for_release>
                 , <&macro_release &mo ARROW &kp LALT>
+                ;
+        };
+        win_space: win_space {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp SPACE>
+                , <&macro_release &kp LGUI>
                 ;
         };
     };
@@ -106,6 +115,13 @@
             #binding-cells = <0>;
             tapping-term-ms = <400>;
             bindings = <&kp LALT>, <&mo ARROW>;
+        };
+        
+        lctrl_lang: lctrl_lang {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <400>;
+            bindings = <&kp LCTRL>, <&win_space>;
         };
         
         // Cyrillic Ь and Ъ
@@ -183,7 +199,7 @@
             bindings = <
 &trans      &kp EXCL    &kp AT      &kp HASH    &kp DOLLAR      &kp PERCENT                 &kp CARET          &kp AMPS    &kp STAR    &kp LPAR    &kp RPAR        &kp UNDER
 &trans      &trans      &trans      &trans      &trans          &trans                      &trans             &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp LBKT        &kp RBKT
-&trans      &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHIFT      &trans                      &kp KP_PLUS        &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS    &kp KP_EQUAL
+&trans      &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHIFT      &trans                      &kp KP_PLUS        &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS    &kp EQUAL
 &trans      &trans      &trans      &trans      &trans          &trans                      &kp KP_MULTIPLY    &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_DIVIDE   &kp KP_DOT
                                     &trans      &trans          &trans                      &trans             &trans
                                                 &trans          &trans                      &kp KP_N0
