@@ -79,7 +79,7 @@
             bindings = <&kp SLASH>, <&kp BACKSLASH>;
         };
 
-        lalt_toarr: slash_backslash {
+        lalt_toarr: lalt_toarr {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <400>;
