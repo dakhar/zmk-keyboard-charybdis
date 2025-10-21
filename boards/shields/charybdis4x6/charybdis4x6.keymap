@@ -21,7 +21,7 @@
 
 / {
 
-    &trackball_listener {
+    trackball_listener {
         device = <&trackball_split>;
         sniper {
             layers = <SNIPER>;
