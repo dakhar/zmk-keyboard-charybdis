@@ -55,16 +55,5 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         status = "disabled";
-        device = <&trackball_split>;
-        sniper {
-            layers = <4>;
-            input-processors = <&zip_xy_scaler 1 4>;
-        };
-        scroller {
-            layers = <5>;
-            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 4>;
-            
-        };
-        input-processors = <&zip_xy_scaler 1 2>;
     };
 };

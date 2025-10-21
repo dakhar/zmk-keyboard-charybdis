@@ -7,15 +7,32 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/outputs.h>
 
+#define QWERTY       0
+#define NUMBERS      1
+#define NAVI         2
+#define MOUSE        3
+#define SNIPER       4
+#define FN           5
+
+#define LEFT_ROW_KEYS       0 1 2 3 4 5  12 13 14 15 16 17  24 25 26 27 28 29  36 37 38 39 40 41
+#define RIGHT_ROW_KEYS      6 7 8 9 10 11  18 19 20 21 22 23  30 31 32 33 34 35  42 43 44 45 46 47
+#define LEFT_THUMB_KEYS     48 49 50  53 54 
+#define RIGHT_THUMB_KEYS    51 52  55
+
 / {
 
-    // #define QWERTY       0
-    // #define NUMBERS      1
-    // #define NAV-FUN      2
-    // #define MOUSE        3
-    // #define SNIPER       4
-    // #define SCROLL       5
-    // #define FN           6
+    &trackball_listener {
+        device = <&trackball_split>;
+        sniper {
+            layers = <SNIPER>;
+            input-processors = <&zip_xy_scaler 1 4>;
+        };
+        scroller {
+            layers = <NUMBERS>;
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 5>;
+        };
+        input-processors = <&zip_xy_scaler 1 2>;
+    };
 
     combos {
         compatible = "zmk,combos";
@@ -23,31 +40,25 @@
         caps_word {
             bindings = <&caps_word>;
             key-positions = <31 28>;
-            layers = <0>;
-        };
-
-        CAPZ {
-            bindings = <&kp CAPSLOCK>;
-            key-positions = <24 25>;
-            layers = <0>;
+            layers = <QWERTY>;
         };
         
         to-MOUSE {
-            bindings = <&to 3>;
+            bindings = <&to MOUSE>;
             key-positions = <37 46>;
-            layers = <0 1 2>;
+            layers = <QWERTY>;
         };
         
         to-WIN {
-            bindings = <&to 0>;
+            bindings = <&to QWERTY>;
             key-positions = <50 51>;
-            layers = <3 6>;
+            layers = <MOUSE FN>;
         };
 
         to-FN {
-            bindings = <&to 6>;
+            bindings = <&to FN>;
             key-positions = <41 42>;
-            layers = <0 3>;
+            layers = <QWERTY MOUSE>;
         };
     };
 
@@ -61,62 +72,83 @@
         };
 
         sl_bsl: slash_backslash {
-            compatible = "zmk,behavior-mod-morph";
+            compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
+            tapping-term-ms = <200>;
             bindings = <&kp SLASH>, <&kp BACKSLASH>;
-            mods = <(MOD_RSFT|MOD_LALT)>;
-            keep-mods = <(MOD_RSFT)>;
         };
         
+        // Cyrillic Ь and Ъ
         sol_sof: solid_soft {
-            compatible = "zmk,behavior-mod-morph";
+            compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
+            tapping-term-ms = <200>;
             bindings = <&kp M>, <&kp RBKT>;
-            mods = <(MOD_RSFT|MOD_LALT)>;
-            keep-mods = <(MOD_RSFT)>;
+        };
+        
+        // Shift and capslock
+        shft_caps: shft_caps {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp RSHIFT>, <&kp CAPSLOCK>;
+        };
+
+        // Win + num_layer
+        mo_kp: behavior_mo_kp {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&kp>;
+        };
+        win_num: win_num {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&mo_kp NUMBERS LGUI>, <&kp LGUI>;
         };
 
         hmr: hmr {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&kp>, <&kp>;
-
             #binding-cells = <2>;
             tapping-term-ms = <190>;
             quick-tap-ms = <175>;
             flavor = "balanced";
-            hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 48 49 50 53 54 51 52 55>;
+            hold-trigger-key-positions = <LEFT_ROW_KEYS LEFT_THUMB_KEYS RIGHT_THUMB_KEYS>;
             hold-trigger-on-release;
         };
 
         hml: hml {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&kp>, <&kp>;
-
             #binding-cells = <2>;
             tapping-term-ms = <190>;
             quick-tap-ms = <175>;
             flavor = "balanced";
-            hold-trigger-key-positions = <48 49 50 53 54 51 52 55 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 42 43 44 45 46 47 51 52>;
+            hold-trigger-key-positions = <RIGHT_ROW_KEYS LEFT_THUMB_KEYS RIGHT_THUMB_KEYS>;
             hold-trigger-on-release;
         };
+
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        default_win_layer {
+        default_layer {
             display-name = "Base";
             bindings = <
-&lt 5 ESC   &kp N1      &kp N2      &kp N3      &kp N4        &kp N5                      &kp N6      &kp N7      &kp N8      &kp N9      &kp N0           &kp MINUS
-&kp GRAVE   &kp Q       &kp W       &kp E       &kp R         &kp T                       &kp Y       &kp U       &kp I       &kp O       &kp P            &kp LBKT
-&kp LSHIFT  &kp A       &kp S       &kp D       &kp F         &kp G                       &kp H       &kp J       &kp K       &kp L       &kp SEMICOLON    &kp APOSTROPHE
-&kp LCTRL   &kp Z       &kp X       &kp C       &kp V         &kp B                       &kp N       &sol_sof    &kp COMMA   &kp DOT     &sl_bsl          &kp RSHIFT
-                                    &kp TAB     &kp SPACE     &mo 1                       &kp ENTER   &mo 2       
-                                                &mkp LCLK     &kp LALT                    &bspc_del
+&lt 5 ESC      &kp N1      &kp N2      &kp N3      &kp N4        &kp N5                      &kp N6      &kp N7      &kp N8      &kp N9      &kp N0           &kp MINUS
+&kp GRAVE      &kp Q       &kp W       &kp E       &kp R         &kp T                       &kp Y       &kp U       &kp I       &kp O       &kp P            &kp LBKT
+&shft_caps     &kp A       &kp S       &kp D       &kp F         &kp G                       &kp H       &kp J       &kp K       &kp L       &kp SEMICOLON    &kp APOSTROPHE
+&kp LCTRL      &kp Z       &kp X       &kp C       &kp V         &kp B                       &kp N       &sol_sof    &kp COMMA   &kp DOT     &sl_bsl          &kp RSHIFT
+                                       &kp TAB     &kp SPACE     &mo 1                       &kp ENTER   &mo 2       
+                                                   &mkp LCLK     &kp LALT                    &bspc_del
             >;
         };
 
-        win_raise_layer {
+        numbers_layer {
             display-name = "Numbers";
             bindings = <
 &trans      &kp EXCL    &kp AT      &kp HASH    &kp DOLLAR      &kp PERCENT                 &kp CARET          &kp AMPS    &kp STAR    &kp LPAR    &kp RPAR        &kp UNDER
@@ -128,8 +160,8 @@
         >;
         };
 
-        win_lower_layer {
-            display-name = "Navi-Fun";
+        navi_layer {
+            display-name = "Navi";
             bindings = <
 &kp PRINTSCREEN     &kp F1      &kp F2      &kp F3          &kp F4       &kp F5             &kp F6    &kp F7        &kp F8      &kp F9      &kp F10     &kp F11
 &kp C_NEXT          &kp C_RW    &kp C_FF    &trans          &trans       &kp C_VOL_UP       &trans    &trans        &kp INS     &trans      &trans      &kp F12
@@ -164,19 +196,7 @@
             >;
         };
 
-        scroll_layer {
-            display-name = "Scroll";
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
-        keeb_pref_layer {
+        function_layer {
             display-name = "FN";
             bindings = <
 &ext_power EP_TOG  &trans        &trans        &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans  &bt BT_CLR
