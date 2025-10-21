@@ -77,10 +77,10 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
-                = <&macro_press &mo ARROW &kp ALT>
+                = <&macro_press &mo ARROW &kp LALT>
                 , <&macro_tap &kp TAB>
                 , <&macro_pause_for_release>
-                , <&macro_release &mo ARROW &kp ALT>
+                , <&macro_release &mo ARROW &kp LALT>
                 ;
         };
     };
