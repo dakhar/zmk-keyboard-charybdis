@@ -412,3 +412,6 @@ combos:
 - p: [41, 42]
   k: {t: FN, h: toggle}
   l: [Base, Mouse]
+- p: [54, 48]
+  k: '&alt_tabm'
+  l: [Base, Mouse]
