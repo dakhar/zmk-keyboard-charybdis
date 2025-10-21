@@ -207,10 +207,10 @@
         arrow_layer {
             display-name = "Arrow";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &PAGE_UP    &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &UP         &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &LEFT   &DOWN       &RIGHT  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &HOME   &PAGE_DOWN  &END    &SLASH  &BACKSLASH
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp PAGE_UP    &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp UP         &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT   &kp DOWN       &kp RIGHT  &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp HOME   &kp PAGE_DOWN  &kp END    &kp SLASH  &kp BACKSLASH
                         &trans  &trans  &trans    &trans  &trans
                                 &trans  &trans    &trans
             >;
