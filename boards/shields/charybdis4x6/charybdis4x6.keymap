@@ -61,6 +61,28 @@
             key-positions = <41 42>;
             layers = <QWERTY MOUSE>;
         };
+
+        combo_alt-tab {
+            timeout-ms = <200>;
+            slow-release;
+            bindings = <&alt_tabm>;
+            key-positions = <54 48>;
+            layers = <QWERTY MOUSE>;
+        };
+        
+    };
+
+    macros {
+        alt_tabm: alt_tabm {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &mo ARROW &kp ALT>
+                , <&macro_tap &kp TAB>
+                , <&macro_pause_for_release>
+                , <&macro_release &mo ARROW &kp ALT>
+                ;
+        };
     };
 
     behaviors {    
