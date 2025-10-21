@@ -12,7 +12,8 @@
 #define NAVI         2
 #define MOUSE        3
 #define SNIPER       4
-#define FN           5
+#define ARROW        5
+#define FN           6
 
 #define LEFT_ROW_KEYS       0 1 2 3 4 5  12 13 14 15 16 17  24 25 26 27 28 29  36 37 38 39 40 41
 #define RIGHT_ROW_KEYS      6 7 8 9 10 11  18 19 20 21 22 23  30 31 32 33 34 35  42 43 44 45 46 47
@@ -74,8 +75,15 @@
         sl_bsl: slash_backslash {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
+            tapping-term-ms = <400>;
             bindings = <&kp SLASH>, <&kp BACKSLASH>;
+        };
+
+        lalt_toarr: slash_backslash {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <400>;
+            bindings = <&kp LALT>, <&mo ARROW>;
         };
         
         // Cyrillic Ь and Ъ
@@ -143,8 +151,8 @@
 &kp GRAVE      &kp Q       &kp W       &kp E       &kp R         &kp T                       &kp Y       &kp U       &kp I       &kp O       &kp P            &kp LBKT
 &shft_caps     &kp A       &kp S       &kp D       &kp F         &kp G                       &kp H       &kp J       &kp K       &kp L       &kp SEMICOLON    &kp APOSTROPHE
 &kp LCTRL      &kp Z       &kp X       &kp C       &kp V         &kp B                       &kp N       &sol_sof    &kp COMMA   &kp DOT     &sl_bsl          &kp RSHIFT
-                                       &kp TAB     &kp SPACE     &mo 1                       &kp ENTER   &mo 2       
-                                                   &mkp LCLK     &kp LALT                    &bspc_del
+                                       &kp TAB     &kp SPACE     &win_num                    &kp ENTER   &mo 2       
+                                                   &mkp LCLK     &lalt_toarr                 &bspc_del
             >;
         };
 
@@ -191,6 +199,18 @@
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans
+                                &trans  &trans    &trans
+            >;
+        };
+        
+        arrow_layer {
+            display-name = "Arrow";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &PAGE_UP    &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &UP         &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &LEFT   &DOWN       &RIGHT  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &HOME   &PAGE_DOWN  &END    &SLASH  &BACKSLASH
                         &trans  &trans  &trans    &trans  &trans
                                 &trans  &trans    &trans
             >;
