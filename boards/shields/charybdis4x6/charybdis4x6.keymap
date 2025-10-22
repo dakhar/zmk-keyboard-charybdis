@@ -61,24 +61,16 @@
             key-positions = <41 42>;
             layers = <QWERTY MOUSE>;
         };
-
-        combo_alt-tab {
-            timeout-ms = <500>;
-            slow-release;
-            bindings = <&alt_tabm>;
-            key-positions = <54 48>;
-            layers = <QWERTY MOUSE>;
-        };
         
     };
 
     macros {
-        alt_tabm: alt_tabm {
+
+        alt_tog: alt_tog {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
                 = <&macro_press &mo ARROW &kp LALT>
-                , <&macro_tap &kp TAB>
                 , <&macro_pause_for_release>
                 , <&macro_release &mo ARROW &kp LALT>
                 ;
@@ -106,15 +98,8 @@
         sl_bsl: slash_backslash {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <400>;
+            tapping-term-ms = <250>;
             bindings = <&kp SLASH>, <&kp BACKSLASH>;
-        };
-
-        lalt_toarr: lalt_toarr {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <400>;
-            bindings = <&kp LALT>, <&mo ARROW>;
         };
         
         lctrl_lang: lctrl_lang {
@@ -190,7 +175,7 @@
 &shft_caps     &kp A       &kp S       &kp D       &kp F         &kp G                       &kp H       &kp J       &kp K       &kp L       &kp SEMICOLON    &kp APOSTROPHE
 &lctrl_lang    &kp Z       &kp X       &kp C       &kp V         &kp B                       &kp N       &sol_sof    &kp COMMA   &kp DOT     &sl_bsl          &kp RSHIFT
                                        &kp TAB     &kp SPACE     &win_num                    &kp ENTER   &mo 2       
-                                                   &mkp LCLK     &lalt_toarr                 &bspc_del
+                                                   &mkp LCLK     &alt_tog                    &bspc_del
             >;
         };
 
