@@ -55,7 +55,7 @@ layers:
   - ENTER
   - Navi
   - '&mkp LCLK'
-  - '&lalt_toarr'
+  - '&alt_tog'
   - {t: BSPC, s: DEL}
   Numbers:
   - {t: ▽, type: trans}
@@ -411,7 +411,4 @@ combos:
   l: [Mouse, FN]
 - p: [41, 42]
   k: {t: FN, h: toggle}
-  l: [Base, Mouse]
-- p: [54, 48]
-  k: '&alt_tabm'
   l: [Base, Mouse]

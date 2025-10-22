@@ -350,7 +350,7 @@ path.combo {
 </g>
 <g transform="translate(335, 393) rotate(45.0)" class="key keypos-54">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap"><tspan style="font-size: 64%">&amp;lalt_toarr</tspan></text>
+<text x="0" y="0" class="key tap"><tspan style="font-size: 88%">&amp;alt_tog</tspan></text>
 </g>
 <g transform="translate(513, 388) rotate(-45.0)" class="key keypos-55">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -378,12 +378,6 @@ path.combo {
 <a href="#FN">
 <text x="420" y="196" class="combo tap layer-activator">FN</text>
 </a><text x="420" y="207" class="combo hold">toggle</text>
-</g>
-<g class="combo combopos-3">
-<path d="M302,336 l24,40" class="combo"/>
-<path d="M302,336 l-24,-40" class="combo"/>
-<rect rx="6" ry="6" x="288" y="323" width="28" height="26" class="combo"/>
-<text x="302" y="336" class="combo tap"><tspan style="font-size: 78%">&amp;alt_tabm</tspan></text>
 </g>
 </g>
 </g>
@@ -1142,12 +1136,6 @@ path.combo {
 <a href="#FN">
 <text x="420" y="196" class="combo tap layer-activator">FN</text>
 </a><text x="420" y="207" class="combo hold">toggle</text>
-</g>
-<g class="combo combopos-2">
-<path d="M302,336 l24,40" class="combo"/>
-<path d="M302,336 l-24,-40" class="combo"/>
-<rect rx="6" ry="6" x="288" y="323" width="28" height="26" class="combo"/>
-<text x="302" y="336" class="combo tap"><tspan style="font-size: 78%">&amp;alt_tabm</tspan></text>
 </g>
 </g>
 </g>
