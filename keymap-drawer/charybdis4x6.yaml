@@ -26,16 +26,16 @@ layers:
   - P
   - '['
   - '&shft_caps'
-  - A
-  - S
-  - D
-  - F
+  - {t: A, h: LCMD}
+  - {t: S, h: LALT}
+  - {t: D, h: LSHFT}
+  - {t: F, h: LCTRL}
   - G
   - H
-  - J
-  - K
-  - L
-  - ;
+  - {t: J, h: RCTRL}
+  - {t: K, h: RSHFT}
+  - {t: L, h: RALT}
+  - {t: ;, h: RCMD}
   - ''''
   - '&lctrl_lang'
   - Z
