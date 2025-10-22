@@ -144,9 +144,11 @@
             compatible = "zmk,behavior-hold-tap";
             bindings = <&kp>, <&kp>;
             #binding-cells = <2>;
-            tapping-term-ms = <190>;
+            tapping-term-ms = <280>;
             quick-tap-ms = <175>;
+            require-prior-idle-ms = <65>;
             flavor = "balanced";
+            retro-tap;
             hold-trigger-key-positions = <LEFT_ROW_KEYS LEFT_THUMB_KEYS RIGHT_THUMB_KEYS>;
             hold-trigger-on-release;
         };
@@ -155,9 +157,11 @@
             compatible = "zmk,behavior-hold-tap";
             bindings = <&kp>, <&kp>;
             #binding-cells = <2>;
-            tapping-term-ms = <190>;
+            tapping-term-ms = <280>;
             quick-tap-ms = <175>;
+            require-prior-idle-ms = <65>;
             flavor = "balanced";
+            retro-tap;
             hold-trigger-key-positions = <RIGHT_ROW_KEYS LEFT_THUMB_KEYS RIGHT_THUMB_KEYS>;
             hold-trigger-on-release;
         };
