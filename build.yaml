@@ -21,8 +21,8 @@
 include:
   # Charybdis with dongle
   - board: nice_nano_v2
-    shield: charybdis4x6_dongle_sh1107
+    shield: charybdis4x6_dongle dongle_screen
     artifact-name: charybdis4x6_dongle_sh1107
   - board: nice_nano_v2
     shield: charybdis4x6_dongle
-    artifact-name: charybdis4x6_dongle_sh1107
+    artifact-name: charybdis4x6_dongle
