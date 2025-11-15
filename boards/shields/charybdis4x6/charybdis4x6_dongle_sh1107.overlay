@@ -18,7 +18,7 @@
 
 &chosen {
     zmk,kscan = &mock_kscan;
-	zmk,display = &oled;
+	zmk,display = &sh1106@3c;
 }; 
 
 &trackball_listener {
