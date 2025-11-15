@@ -17,7 +17,7 @@
 
 &chosen {
     zmk,kscan = &mock_kscan;
-	zmk,display = &sh1106;
+	zephyr,display = &sh1106;
 }; 
 
 &trackball_listener {
