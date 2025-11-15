@@ -37,7 +37,7 @@ endif
 
 if SHIELD_CHARYBDIS4x6_DONGLE_SH1107
 config ZMK_KEYBOARD_NAME
-    default "CharybdisDongleOLED"
+    default "CharybdisDongle"
 config ZMK_DISPLAY
     default y
 config I2C
