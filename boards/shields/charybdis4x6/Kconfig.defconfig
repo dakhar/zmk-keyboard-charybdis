@@ -9,6 +9,8 @@ config ZMK_SPLIT_BLE
 if SHIELD_CHARYBDIS4x6_DONGLE
 config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
     default 2
+config SPI
+    default y
 endif
 
 if SHIELD_CHARYBDIS4x6_RIGHT
@@ -35,6 +37,11 @@ config ZMK_KEYBOARD_NAME
     default "CharybdisDongle"
 endif
 
+if SHIELD_CHARYBDIS4x6_DONGLE_SH1107
+config ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+    default y
+endif
+
 if SHIELD_CHARYBDIS4x6_RIGHT
 config ZMK_KEYBOARD_NAME
     default "Charybdis"
@@ -42,6 +49,8 @@ endif
 
 if SHIELD_CHARYBDIS4x6_DONGLE || SHIELD_CHARYBDIS4x6_RIGHT
 config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+config BT_BAS
     default y
 endif
 
