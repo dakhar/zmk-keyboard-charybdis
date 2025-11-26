@@ -21,7 +21,7 @@
 #define LEFT_THUMB_KEYS     48 49 50  53 54 
 #define RIGHT_THUMB_KEYS    51 52  55
 
-&caps_word { continue-list = <UNDERSCORE MINUS SEMICOLON>; };
+&caps_word { continue-list = <UNDERSCORE BACKSPACE DELETE MINUS SEMICOLON>; };
 / {
 
     trackball_listener {
