@@ -1,0 +1,43 @@
+#include "charybdis4x6.dtsi"
+
+&kscan0 {
+	col-gpios
+		= <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&pro_micro 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&pro_micro 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&pro_micro 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		;
+};
+
+&mock_kscan {
+    status = "okay";
+};
+
+&chosen {
+    zmk,kscan = &mock_kscan;
+	zephyr,display = &sh1106;
+}; 
+
+&trackball_listener {
+    status = "okay";
+};
+
+&pro_micro_i2c {
+    status = "okay";
+    sh1106: sh1106@3c {
+        compatible = "sinowealth,sh1106";
+        reg = <0x3c>;
+        width = <120>;
+        height = <128>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <119>;
+        segment-remap;
+        com-invdir;
+        inversion-on;
+        prechargep = <0x22>;
+        };
+};
