@@ -256,6 +256,7 @@
                                                &trans        &trans        &trans          &trans  &trans
                                                              &trans        &trans          &trans
             >;
+        };
 
         normal_layer {
             display-name = "Clean";
