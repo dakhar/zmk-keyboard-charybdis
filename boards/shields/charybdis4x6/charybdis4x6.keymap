@@ -20,7 +20,8 @@
 #define RIGHT_ROW_KEYS      6 7 8 9 10 11  18 19 20 21 22 23  30 31 32 33 34 35  42 43 44 45 46 47
 #define LEFT_THUMB_KEYS     48 49 50  53 54 
 #define RIGHT_THUMB_KEYS    51 52  55
-
+&gresc: { mods = <(MOD_LGUI|MOD_LCTRL|MOD_RGUI|MOD_LCTRL)>; };
+&caps_word: { continue-list = <UNDERSCORE MINUS SLASH>; };
 / {
 
     trackball_listener {
@@ -45,25 +46,25 @@
             layers = <QWERTY>;
         };
         
-        to-MOUSE {
+        to-mouse {
             bindings = <&to MOUSE>;
             key-positions = <37 46>;
             layers = <QWERTY>;
         };
         
-        to-WIN {
+        to-win {
             bindings = <&to QWERTY>;
             key-positions = <50 51>;
             layers = <MOUSE FN>;
         };
 
-        to-FN {
+        to-fn {
             bindings = <&to FN>;
             key-positions = <41 42>;
             layers = <QWERTY MOUSE>;
         };
         
-        to-NORMAL {
+        to-normal {
             bindings = <&to NORMAL>;
             key-positions = <5 6>;
             layers = <QWERTY MOUSE>;
@@ -96,12 +97,6 @@
     behaviors {    
 
 
-        sl_bsl: slash_backslash {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <250>;
-            bindings = <&kp SLASH>, <&kp BACKSLASH>;
-        };
         lbkt_rbkt: lbkt_rbkt {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
@@ -173,11 +168,11 @@
         default_layer {
             display-name = "Base";
             bindings = <
-&lt GRAVE       &kp N1       &kp N2          &kp N3          &kp N4          &kp N5                      &kp N6      &kp N7          &kp N8          &kp N9      &kp N0              &kp MINUS
+&gresc          &kp N1       &kp N2          &kp N3          &kp N4          &kp N5                      &kp N6      &kp N7          &kp N8          &kp N9      &kp N0              &kp MINUS
 &kp TAB         &kp Q        &kp W           &kp E           &kp R           &kp T                       &kp Y       &kp U           &kp I           &kp O       &kp P               &lbkt_rbkt
 &shft_caps      &hml LCMD A  &hml LALT S     &hml LSHFT D    &hml LCTRL F    &kp G                       &kp H       &hmr RCTRL J    &hmr RSHFT K    &hmr RALT L &hmr RCMD SEMICOLON &kp APOSTROPHE
-&lctrl_lang     &kp Z        &kp X           &kp C           &kp V           &kp B                       &kp N       &sol_sof        &kp COMMA       &kp DOT     &sl_bsl             &kp QUESTION
-                                             &kp ESC         &kp SPACE       &mo NUMBERS                 &kp ENTER   &kp BSPC       
+&lctrl_lang     &kp Z        &kp X           &kp C           &kp V           &kp B                       &kp N       &sol_sof        &kp COMMA       &kp DOT     &kp SLASH           &kp QUESTION
+                                             &kp BACKSLASH   &kp SPACE       &mo NUMBERS                 &kp ENTER   &kp BSPC       
                                                              &LCLK_RCLK      &alt_tog                    &mo NAVI
             >;
         };
@@ -243,7 +238,7 @@
         };
 
         function_layer {
-            display-name = "FN";
+            display-name = "Func";
             bindings = <
 &ext_power EP_TOG  &trans        &trans        &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans  &bt BT_CLR
 &studio_unlock     &trans        &trans        &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans  &trans
