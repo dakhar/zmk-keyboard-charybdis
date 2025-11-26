@@ -22,6 +22,7 @@
 #define RIGHT_THUMB_KEYS    51 52  55
 
 &caps_word { continue-list = <UNDERSCORE MINUS SLASH>; };
+&gresc { mods = <(MOD_LGUI|MOD_LCTRL|MOD_RGUI|MOD_RCTRL)>; };
 / {
 
     trackball_listener {
@@ -135,12 +136,6 @@
             bindings = <&mkp LCLK>, <&mkp RCLK>;
         };
 
-        gresc: grave_escape {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp GRAVE>, <&kp ESC>;
-            mods = <(MOD_LGUI|MOD_LCTRL|MOD_RGUI|MOD_LCTRL)>;
-        };
         hmr: hmr {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&kp>, <&kp>;
