@@ -111,14 +111,6 @@
             bindings = <&kp LCTRL>, <&win_space>;
         };
         
-        // Cyrillic Ь and Ъ
-        sol_sof: solid_soft {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&kp M>, <&kp RBKT>;
-        };
-        
         // Shift and capslock
         shft_caps: shft_caps {
             compatible = "zmk,behavior-tap-dance";
@@ -178,7 +170,7 @@
 &gresc          &kp N1       &kp N2          &kp N3          &kp N4          &kp N5                      &kp N6      &kp N7          &kp N8          &kp N9      &kp N0              &kp MINUS
 &kp TAB         &kp Q        &kp W           &kp E           &kp R           &kp T                       &kp Y       &kp U           &kp I           &kp O       &kp P               &lbkt_rbkt
 &shft_caps      &hml LCMD A  &hml LALT S     &hml LSHFT D    &hml LCTRL F    &kp G                       &kp H       &hmr RCTRL J    &hmr RSHFT K    &hmr RALT L &hmr RCMD SEMICOLON &kp APOSTROPHE
-&lctrl_lang     &kp Z        &kp X           &kp C           &kp V           &kp B                       &kp N       &sol_sof        &kp COMMA       &kp DOT     &kp SLASH           &kp QUESTION
+&lctrl_lang     &kp Z        &kp X           &kp C           &kp V           &kp B                       &kp N       &kp M           &kp COMMA       &kp DOT     &kp SLASH           &kp QUESTION
                                              &kp BACKSLASH   &kp SPACE       &mo NUMBERS                 &kp ENTER   &kp BSPC       
                                                              &LCLK_RCLK      &alt_tog                    &mo NAVI
             >;
