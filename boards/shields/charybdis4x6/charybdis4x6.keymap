@@ -139,7 +139,7 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp GRAVE>, <&kp ESC>;
-            mods = <(MOD_LGUI|MOD_LCTRL|MOD_RGUI|MOD_RCTRL)>;
+            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
         };
 
         hmr: hmr {
