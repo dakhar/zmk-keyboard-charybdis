@@ -21,10 +21,6 @@
 #define LEFT_THUMB_KEYS     48 49 50  53 54 
 #define RIGHT_THUMB_KEYS    51 52  55
 
-&caps_word {
-    continue-list = <UNDERSCORE MINUS SEMICOLON>;
-};
-
 / {
 
     trackball_listener {
@@ -47,6 +43,7 @@
             bindings = <&caps_word>;
             key-positions = <31 28>;
             layers = <QWERTY>;
+            continue-list = <UNDERSCORE MINUS SEMICOLON>;
         };
         
         to-MOUSE {
