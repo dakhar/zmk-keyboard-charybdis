@@ -44,7 +44,7 @@ layers:
   - V
   - B
   - N
-  - '&sol_sof'
+  - M
   - ','
   - .
   - /
@@ -443,7 +443,7 @@ layers:
   - V
   - B
   - N
-  - '&sol_sof'
+  - M
   - ','
   - .
   - /
