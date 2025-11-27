@@ -180,7 +180,7 @@
             bindings = <
 &kp ESC          &kp EXCL    &kp AT      &kp HASH    &kp DOLLAR      &kp PERCENT                 &kp CARET          &kp AMPS    &kp STAR    &kp LPAR    &kp RPAR        &kp UNDER
 &kp PAUSE_BREAK  &trans      &trans      &trans      &trans          &trans                      &kp KP_NUMLOCK     &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp LBKT        &kp RBKT
-&trans           &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHIFT      &kp K_CALC                  &kp KP_PLUS        &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS    &kp EQUAL
+&trans           &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHIFT      &kp C_AL_CALC               &kp KP_PLUS        &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS    &kp EQUAL
 &trans           &trans      &trans      &trans      &trans          &trans                      &kp KP_MULTIPLY    &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_DIVIDE   &kp KP_DOT
                                          &trans      &trans          &trans                      &kp DEL            &kp BSPC
                                                      &trans          &trans                      &kp KP_N0
