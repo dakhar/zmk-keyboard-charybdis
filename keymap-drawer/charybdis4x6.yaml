@@ -58,7 +58,7 @@ layers:
   - '&alt_tog'
   - Navi
   Numbers:
-  - {t: ▽, type: trans}
+  - ESC
   - '!'
   - '@'
   - '#'
@@ -70,7 +70,7 @@ layers:
   - (
   - )
   - _
-  - {t: ▽, type: trans}
+  - PAUSE BREAK
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -87,7 +87,7 @@ layers:
   - LALT
   - LCTRL
   - LSHIFT
-  - {t: ▽, type: trans}
+  - CALC
   - KP PLUS
   - KP 4
   - KP 5
@@ -145,7 +145,7 @@ layers:
   - DOWN
   - RIGHT
   - MUTE
-  - {t: ▽, type: trans}
+  - BRI UP
   - RSHIFT
   - RCTRL
   - RALT
@@ -157,7 +157,7 @@ layers:
   - PAGE DOWN
   - END
   - VOL DN
-  - {t: ▽, type: trans}
+  - BRI DN
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
