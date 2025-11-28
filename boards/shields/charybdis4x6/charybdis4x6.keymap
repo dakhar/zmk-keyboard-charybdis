@@ -200,9 +200,18 @@
             retro-tap;
             hold-trigger-key-positions = <RIGHT_ROW_KEYS LEFT_THUMB_KEYS RIGHT_THUMB_KEYS>;
             hold-trigger-on-release;
-            hold-while-undecided;
         };
 
+        hmt: hmt {
+            compatible = "zmk,behavior-hold-tap";
+            bindings = <&kp>, <&kp>;
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <90>;
+            flavor = "balanced";
+            hold-trigger-on-release;
+            hold-while-undecided;
+        };
     };
     keymap {
         compatible = "zmk,keymap";
@@ -212,7 +221,7 @@
             bindings = <
 &gresc              &kp N1          &kp N2          &kp N3          &kp N4          &kp N5                      &kp N6          &kp N7          &kp N8          &kp N9      &kp N0              &kp MINUS
 &kp TAB             &kp Q           &kp W           &kp E           &kp R           &kp T                       &kp Y           &kp U           &kp I           &kp O       &kp P               &kp LBKT
-&hml LSHFT QMARK    &hml LCMD A     &hml LALT S     &hml LSHFT D    &hml LCTRL F    &kp G                       &kp H           &hmr RCTRL J    &hmr RSHFT K    &hmr RALT L &hmr RCMD SEMI      &kp APOS
+&hmt LSHFT QMARK    &hml LCMD A     &hml LALT S     &hml LSHFT D    &hml LCTRL F    &kp G                       &kp H           &hmr RCTRL J    &hmr RSHFT K    &hmr RALT L &hmr RCMD SEMI      &kp APOS
 &lctrl_lang         &kp Z           &kp X           &kp C           &kp V           &kp B                       &kp N           &kp M           &kp COMMA       &kp DOT     &kp SLASH           &hmr RSHFT RBKT 
                                                     &bsl_pipe       &kp SPACE       &mo NUMBERS                 &kp ENTER       &kp BSPC       
                                                                     &LCLK_RCLK      &alt_tog                    &mo NAVI
@@ -270,12 +279,12 @@
         arrow_layer {
             display-name = "Arrow";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp PG_UP  &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp UP     &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT   &kp DOWN   &kp RIGHT  &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp HOME   &kp PG_DN  &kp END    &kp SLASH  &kp BSLH
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+&trans     &kp F1  kp F2   &kp F3  &kp F4  &kp F5    &kp F6  &kp F7     &kp F8     &kp F9     &kp F10    &kp F11
+&trans     &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp UP     &trans     &trans     &kp F12
+&kp LSHFT  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT   &kp DOWN   &kp RIGHT  &trans     &trans
+&kp LCTRL  &trans  &trans  &trans  &trans  &trans    &trans  &kp HOME   &kp PG_DN  &kp END    &kp SLASH  &kp BSLH
+                           &trans  &trans  &trans    &trans  &trans
+                                   &trans  &trans    &trans
             >;
         };
 
