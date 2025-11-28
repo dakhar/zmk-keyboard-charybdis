@@ -25,7 +25,7 @@ layers:
   - O
   - P
   - '['
-  - '&shft_caps'
+  - {t: '?', h: LSHFT}
   - {t: A, h: LCMD}
   - {t: S, h: LALT}
   - {t: D, h: LSHFT}
@@ -48,7 +48,7 @@ layers:
   - ','
   - .
   - /
-  - {t: ']', h: RSHIFT}
+  - {t: ']', h: RSHFT}
   - '&bsl_pipe'
   - SPACE
   - Numbers
@@ -74,26 +74,26 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - KP NUMLOCK
+  - '&prw_wspace'
+  - '&nxt_wspace'
+  - KP NUM
   - KP 7
   - KP 8
   - KP 9
   - '['
   - ']'
-  - {t: ▽, type: trans}
+  - CAPS
   - LGUI
   - LALT
   - LCTRL
-  - LSHIFT
-  - AL CALC
+  - LSHFT
+  - CALC
   - KP PLUS
   - KP 4
   - KP 5
   - KP 6
   - KP MINUS
-  - '='
+  - KP EQUAL
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -104,18 +104,18 @@ layers:
   - KP 1
   - KP 2
   - KP 3
-  - KP DIVIDE
+  - KP SLASH
   - KP DOT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
   - DEL
-  - BSPC
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   - KP 0
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - BSPC
   Navi:
-  - PRINTSCREEN
+  - PSCRN
   - F1
   - F2
   - F3
@@ -146,15 +146,15 @@ layers:
   - RIGHT
   - MUTE
   - BRI UP
-  - RSHIFT
+  - RSHFT
   - RCTRL
   - RALT
   - RGUI
   - {t: ▽, type: trans}
   - PREVIOUS
   - HOME
-  - PAGE UP
-  - PAGE DOWN
+  - PG UP
+  - PG DN
   - END
   - VOL DN
   - BRI DN
@@ -200,10 +200,10 @@ layers:
   - LGUI
   - LALT
   - LCTRL
-  - LSHIFT
+  - LSHFT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - RSHIFT
+  - RSHFT
   - RCTRL
   - RALT
   - RGUI
@@ -294,7 +294,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - PAGE UP
+  - PG UP
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -330,7 +330,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - HOME
-  - PAGE DOWN
+  - PG DN
   - END
   - /
   - \
@@ -343,7 +343,8 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   Func:
-  - EP TOG
+  - EP OFF
+  - EP ON
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -352,8 +353,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '&firmware'
   - BT CLR
   - '&studio_unlock'
   - {t: ▽, type: trans}
@@ -371,8 +371,8 @@ layers:
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
-  - {t: BT, h: '3'}
-  - {t: BT, h: '4'}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -424,7 +424,7 @@ layers:
   - O
   - P
   - '['
-  - LSHIFT
+  - LSHFT
   - A
   - S
   - D
@@ -447,7 +447,7 @@ layers:
   - ','
   - .
   - /
-  - {t: ']', h: RSHIFT}
+  - {t: ']', h: RSHFT}
   - \
   - SPACE
   - Numbers
