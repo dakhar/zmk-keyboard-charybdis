@@ -87,7 +87,7 @@ layers:
   - LALT
   - LCTRL
   - LSHFT
-  - CALC
+  - AL CALC
   - KP PLUS
   - KP 4
   - KP 5
@@ -343,8 +343,8 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   Func:
-  - EP OFF
-  - EP ON
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
