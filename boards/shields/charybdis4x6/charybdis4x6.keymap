@@ -200,6 +200,7 @@
             retro-tap;
             hold-trigger-key-positions = <RIGHT_ROW_KEYS LEFT_THUMB_KEYS RIGHT_THUMB_KEYS>;
             hold-trigger-on-release;
+            hold-while-undecided;
         };
 
     };
