@@ -7,6 +7,21 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/outputs.h>
 
+/* --- KEYMAP CONFIG --- */
+// ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
+// │  00  │  01  │  02  │  03  │  04  │  05  │  │  06  │  07  │  08  │  09  │  10  │  11  │
+// ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
+// │  12  │  13  │  14  │  15  │  16  │  17  │  │  18  │  19  │  20  │  21  │  22  │  23  │
+// ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
+// │  24  │  25  │  26  │  27  │  28  │  29  │  │  30  │  31  │  32  │  33  │  34  │  35  │
+// ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
+// │  36  │  37  │  38  │  39  │  40  │  41  │  │  42  │  43  │  44  │  45  │  46  │  47  │
+// ╰──────┴──────┴──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┴──────┴──────┴──────╯
+//                      │  48  │  49  │  50  │  │  51  │  52  │
+//                      ╰──────┼──────┼──────┤  ├──────┼──────╯
+//                             │  53  │  54  │  │  55  │
+//                             ╰──────┴──────╯  ╰──────╯
+
 #define QWERTY       0
 #define NUMBERS      1
 #define NAVI         2
@@ -16,12 +31,23 @@
 #define FN           6
 #define NORMAL       7
 
-#define LEFT_ROW_KEYS       0 1 2 3 4 5  12 13 14 15 16 17  24 25 26 27 28 29  36 37 38 39 40 41
-#define RIGHT_ROW_KEYS      6 7 8 9 10 11  18 19 20 21 22 23  30 31 32 33 34 35  42 43 44 45 46 47
-#define LEFT_THUMB_KEYS     48 49 50  53 54 
-#define RIGHT_THUMB_KEYS    51 52  55
+#define LEFT_ROW_KEYS        0  1  2  3  4  5 \
+                            12 13 14 15 16 17 \
+                            24 25 26 27 28 29 \
+                            36 37 38 39 40 41
 
-&caps_word { continue-list = <UNDERSCORE BACKSPACE DELETE MINUS SEMICOLON>; };
+#define RIGHT_ROW_KEYS       6  7  8  9 10 11 \
+                            18 19 20 21 22 23 \
+                            30 31 32 33 34 35 \
+                            42 43 44 45 46 47
+
+#define LEFT_THUMB_KEYS     48 49 50 \
+                               53 54 
+
+#define RIGHT_THUMB_KEYS    51 52 \
+                            55
+
+&caps_word { continue-list = <UNDER BSPC DEL MINUS SEMI>; };
 / {
 
     trackball_listener {
@@ -92,6 +118,31 @@
                 , <&macro_release &kp LGUI>
                 ;
         };
+        nxt_wspace: nxt_wspace {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI &kp LCTRL>
+                , <&macro_tap &kp RIGHT>
+                , <&macro_release &kp LGUI &kp LCTRL>
+                ;
+        };
+        prw_wspace: prw_wspace {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI &kp LCTRL>
+                , <&macro_tap &kp LEFT>
+                , <&macro_release &kp LGUI &kp LCTRL>
+                ;
+        };
+        firmware: firmware {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_tap &bootloader>
+                ;
+        };
     };
 
     behaviors {    
@@ -107,7 +158,7 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&kp BACKSLASH>, <&kp PIPE>;
+            bindings = <&kp BSLH>, <&kp PIPE>;
         };
  
         // Left and right mouse keys
@@ -150,14 +201,6 @@
             hold-trigger-key-positions = <RIGHT_ROW_KEYS LEFT_THUMB_KEYS RIGHT_THUMB_KEYS>;
             hold-trigger-on-release;
         };
-        
-        // Shift and capslock
-        shft_caps: shft_caps {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&hml RSHIFT QUESTION>, <&kp CAPSLOCK>;
-        };
 
     };
     keymap {
@@ -166,11 +209,11 @@
         default_layer {
             display-name = "Base";
             bindings = <
-&gresc          &kp N1       &kp N2          &kp N3                 &kp N4          &kp N5                      &kp N6      &kp N7          &kp N8          &kp N9      &kp N0              &kp MINUS
-&kp TAB         &kp Q        &kp W           &kp E                  &kp R           &kp T                       &kp Y       &kp U           &kp I           &kp O       &kp P               &kp LBKT
-&shft_caps      &hml LCMD A  &hml LALT S     &hml LSHFT D           &hml LCTRL F    &kp G                       &kp H       &hmr RCTRL J    &hmr RSHFT K    &hmr RALT L &hmr RCMD SEMICOLON &kp APOSTROPHE
-&lctrl_lang     &kp Z        &kp X           &kp C                  &kp V           &kp B                       &kp N       &kp M           &kp COMMA       &kp DOT     &kp SLASH           &hmr RSHIFT RBKT 
-                                             &bsl_pipe              &kp SPACE       &mo NUMBERS                 &kp ENTER   &kp BSPC       
+&gresc              &kp N1          &kp N2          &kp N3          &kp N4          &kp N5                      &kp N6          &kp N7          &kp N8          &kp N9      &kp N0              &kp MINUS
+&kp TAB             &kp Q           &kp W           &kp E           &kp R           &kp T                       &kp Y           &kp U           &kp I           &kp O       &kp P               &kp LBKT
+&hml LSHFT QMARK    &hml LCMD A     &hml LALT S     &hml LSHFT D    &hml LCTRL F    &kp G                       &kp H           &hmr RCTRL J    &hmr RSHFT K    &hmr RALT L &hmr RCMD SEMI      &kp APOS
+&lctrl_lang         &kp Z           &kp X           &kp C           &kp V           &kp B                       &kp N           &kp M           &kp COMMA       &kp DOT     &kp SLASH           &hmr RSHFT RBKT 
+                                                    &bsl_pipe       &kp SPACE       &mo NUMBERS                 &kp ENTER       &kp BSPC       
                                                                     &LCLK_RCLK      &alt_tog                    &mo NAVI
             >;
         };
@@ -178,24 +221,24 @@
         numbers_layer {
             display-name = "Numbers";
             bindings = <
-&kp ESC          &kp EXCL    &kp AT      &kp HASH    &kp DOLLAR      &kp PERCENT                 &kp CARET          &kp AMPS    &kp STAR    &kp LPAR    &kp RPAR        &kp UNDER
-&kp PAUSE_BREAK  &trans      &trans      &trans      &trans          &trans                      &kp KP_NUMLOCK     &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp LBKT        &kp RBKT
-&trans           &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHIFT      &kp C_AL_CALC               &kp KP_PLUS        &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS    &kp EQUAL
-&trans           &trans      &trans      &trans      &trans          &trans                      &kp KP_MULTIPLY    &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_DIVIDE   &kp KP_DOT
-                                         &trans      &trans          &trans                      &kp DEL            &kp BSPC
-                                                     &trans          &trans                      &kp KP_N0
+&kp ESC             &kp EXCL        &kp AT          &kp HASH        &kp DOLLAR      &kp PERCENT                 &kp CARET       &kp AMPS        &kp STAR        &kp LPAR    &kp RPAR            &kp UNDER
+&kp PAUSE_BREAK     &trans          &trans          &trans          &prw_wspace     &nxt_wspace                 &kp KP_NUM      &kp KP_N7       &kp KP_N8       &kp KP_N9   &kp LBKT            &kp RBKT
+&kp CAPS            &kp LGUI        &kp LALT        &kp LCTRL       &kp LSHFT       &kp K_CALC                  &kp KP_PLUS     &kp KP_N4       &kp KP_N5       &kp KP_N6   &kp KP_MINUS        &kp KP_EQUAL
+&trans              &trans          &trans          &trans          &trans          &trans                      &kp KP_MULTIPLY &kp KP_N1       &kp KP_N2       &kp KP_N3   &kp KP_SLASH        &kp KP_DOT
+                                                    &trans          &trans          &trans                      &kp DEL         &kp KP_N0
+                                                                    &trans          &trans                      &kp BSPC
         >;
         };
 
         navi_layer {
             display-name = "Navi";
             bindings = <
-&kp PRINTSCREEN     &kp F1      &kp F2      &kp F3          &kp F4       &kp F5             &kp F6          &kp F7        &kp F8      &kp F9      &kp F10     &kp F11
-&kp C_NEXT          &kp C_RW    &kp C_FF    &trans          &trans       &kp C_VOL_UP       &trans          &trans        &trans      &trans      &kp INS     &kp F12
-&kp C_PLAY_PAUSE    &kp LEFT    &kp UP      &kp DOWN        &kp RIGHT    &kp C_MUTE         &kp C_BRI_UP    &kp RSHIFT    &kp RCTRL   &kp RALT    &kp RGUI    &trans
-&kp C_PREVIOUS      &kp HOME    &kp PAGE_UP &kp PAGE_DOWN   &kp END      &kp C_VOL_DN       &kp C_BRI_DN    &trans        &trans      &trans      &trans      &trans
-                                            &trans          &trans       &trans             &trans          &trans
-                                                            &trans       &trans             &trans
+&kp PSCRN           &kp F1          &kp F2          &kp F3          &kp F4          &kp F5                      &kp F6          &kp F7          &kp F8          &kp F9      &kp F10             &kp F11
+&kp C_NEXT          &kp C_RW        &kp C_FF        &trans          &trans          &kp C_VOL_UP                &trans          &trans          &trans          &trans      &kp INS             &kp F12
+&kp C_PLAY_PAUSE    &kp LEFT        &kp UP          &kp DOWN        &kp RIGHT       &kp C_MUTE                  &kp C_BRI_UP    &kp RSHFT       &kp RCTRL       &kp RALT    &kp RGUI            &trans
+&kp C_PREVIOUS      &kp HOME        &kp PG_UP       &kp PG_DN       &kp END         &kp C_VOL_DN                &kp C_BRI_DN    &trans          &trans          &trans      &trans              &trans
+                                                    &trans          &trans          &trans                      &trans          &trans
+                                                                    &trans          &trans                      &trans
             >;
         };
 
@@ -204,7 +247,7 @@
             bindings = <
 &trans      &trans      &trans      &trans      &trans      &trans                  &trans      &trans      &trans      &trans      &trans      &trans
 &trans      &trans      &trans      &trans      &trans      &trans                  &trans      &trans      &trans      &trans      &trans      &trans
-&trans      &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHIFT  &trans                  &trans      &kp RSHIFT  &kp RCTRL   &kp RALT    &kp RGUI    &trans
+&trans      &kp LGUI    &kp LALT    &kp LCTRL   &kp LSHFT   &trans                  &trans      &kp RSHFT   &kp RCTRL   &kp RALT    &kp RGUI    &trans
 &trans      &trans      &trans      &mo ARROW   &mo SNIPER  &trans                  &trans      &mo SNIPER  &mo ARROW   &trans      &trans      &trans
                                     &mkp RCLK   &trans      &mkp MCLK               &mkp MCLK   &mkp RCLK
                                                 &mkp LCLK   &mkp RCLK               &mkp LCLK
@@ -226,10 +269,10 @@
         arrow_layer {
             display-name = "Arrow";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp PAGE_UP    &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp UP         &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT   &kp DOWN       &kp RIGHT  &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp HOME   &kp PAGE_DOWN  &kp END    &kp SLASH  &kp BACKSLASH
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp PG_UP  &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans     &kp UP     &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT   &kp DOWN   &kp RIGHT  &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp HOME   &kp PG_DN  &kp END    &kp SLASH  &kp BSLH
                         &trans  &trans  &trans    &trans  &trans
                                 &trans  &trans    &trans
             >;
@@ -238,24 +281,24 @@
         function_layer {
             display-name = "Func";
             bindings = <
-&ext_power EP_TOG  &trans        &trans        &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans  &bt BT_CLR
-&studio_unlock     &trans        &trans        &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans  &trans
-&out OUT_TOG       &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &trans  &trans  &trans  &trans  &trans  &trans
-&trans             &trans        &trans        &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans  &trans
-                                               &trans        &trans        &trans          &trans  &trans
-                                                             &trans        &trans          &trans
+&ext_power EP_OFF  &ext_power EP_ON     &trans          &trans        &trans        &trans          &trans  &trans  &trans  &trans  &firmware       &bt BT_CLR
+&studio_unlock     &trans               &trans          &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans          &trans
+&out OUT_TOG       &bt BT_SEL 0         &bt BT_SEL 1    &bt BT_SEL 2  &trans        &trans          &trans  &trans  &trans  &trans  &trans          &trans
+&trans             &trans               &trans          &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans          &trans
+                                                        &trans        &trans        &trans          &trans  &trans
+                                                        &trans        &trans        &trans
             >;
         };
 
         normal_layer {
             display-name = "Clean";
             bindings = <
-&gresc          &kp N1  &kp N  &kp N3         &kp N4        &kp N5                 &kp N6     &kp N7     &kp N8     &kp N9     &kp N0         &kp MINUS
-&kp TAB         &kp Q   &kp W  &kp E          &kp R         &kp T                  &kp Y      &kp U      &kp I      &kp O      &kp P          &kp LBKT
-&kp LSHIFT      &kp A   &kp S  &kp D          &kp F         &kp G                  &kp H      &kp J      &kp K      &kp L      &kp SEMICOLON  &kp APOSTROPHE
-&kp LCTRL       &kp Z   &kp X  &kp C          &kp V         &kp B                  &kp N      &kp M      &kp COMMA  &kp DOT    &kp SLASH      &hmr RSHIFT RBKT 
-                               &kp BACKSLASH  &kp SPACE     &mo NUMBERS            &kp ENTER  &kp BSPC   
-                                              &LCLK_RCLK    &kp LALT               &mo NAVI
+&gresc          &kp N1  &kp N  &kp N3       &kp N4        &kp N5                 &kp N6     &kp N7     &kp N8     &kp N9     &kp N0         &kp MINUS
+&kp TAB         &kp Q   &kp W  &kp E        &kp R         &kp T                  &kp Y      &kp U      &kp I      &kp O      &kp P          &kp LBKT
+&kp LSHFT       &kp A   &kp S  &kp D        &kp F         &kp G                  &kp H      &kp J      &kp K      &kp L      &kp SEMI       &kp APOS
+&kp LCTRL       &kp Z   &kp X  &kp C        &kp V         &kp B                  &kp N      &kp M      &kp COMMA  &kp DOT    &kp SLASH      &hmr RSHFT RBKT 
+                               &kp BSLH     &kp SPACE     &mo NUMBERS            &kp ENTER  &kp BSPC   
+                                            &LCLK_RCLK    &kp LALT               &mo NAVI
             >;
         };
     };
