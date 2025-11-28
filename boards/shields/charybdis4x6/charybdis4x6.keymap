@@ -223,7 +223,7 @@
             bindings = <
 &kp ESC             &kp EXCL        &kp AT          &kp HASH        &kp DOLLAR      &kp PERCENT                 &kp CARET       &kp AMPS        &kp STAR        &kp LPAR    &kp RPAR            &kp UNDER
 &kp PAUSE_BREAK     &trans          &trans          &trans          &prw_wspace     &nxt_wspace                 &kp KP_NUM      &kp KP_N7       &kp KP_N8       &kp KP_N9   &kp LBKT            &kp RBKT
-&kp CAPS            &kp LGUI        &kp LALT        &kp LCTRL       &kp LSHFT       &kp K_CALC                  &kp KP_PLUS     &kp KP_N4       &kp KP_N5       &kp KP_N6   &kp KP_MINUS        &kp KP_EQUAL
+&kp CAPS            &kp LGUI        &kp LALT        &kp LCTRL       &kp LSHFT       &kp C_AL_CALC               &kp KP_PLUS     &kp KP_N4       &kp KP_N5       &kp KP_N6   &kp KP_MINUS        &kp KP_EQUAL
 &trans              &trans          &trans          &trans          &trans          &trans                      &kp KP_MULTIPLY &kp KP_N1       &kp KP_N2       &kp KP_N3   &kp KP_SLASH        &kp KP_DOT
                                                     &trans          &trans          &trans                      &kp DEL         &kp KP_N0
                                                                     &trans          &trans                      &kp BSPC
@@ -281,7 +281,7 @@
         function_layer {
             display-name = "Func";
             bindings = <
-&ext_power EP_OFF  &ext_power EP_ON     &trans          &trans        &trans        &trans          &trans  &trans  &trans  &trans  &firmware       &bt BT_CLR
+&trans             &trans               &trans          &trans        &trans        &trans          &trans  &trans  &trans  &trans  &firmware       &bt BT_CLR
 &studio_unlock     &trans               &trans          &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans          &trans
 &out OUT_TOG       &bt BT_SEL 0         &bt BT_SEL 1    &bt BT_SEL 2  &trans        &trans          &trans  &trans  &trans  &trans  &trans          &trans
 &trans             &trans               &trans          &trans        &trans        &trans          &trans  &trans  &trans  &trans  &trans          &trans
