@@ -93,7 +93,7 @@ layers:
   - KP 5
   - KP 6
   - KP MINUS
-  - KP EQUAL
+  - '='
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
