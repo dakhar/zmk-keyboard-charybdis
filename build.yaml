@@ -34,6 +34,10 @@ include:
   - board: nice_nano_v2
     shield: charybdis4x6_dongle dongle_screen
     artifact-name: charybdis4x6_dongle_sh1107
+  - board: nice_nano_v2
+    shield: charybdis4x6_dongle dongle_screen
+    artifact-name: charybdis4x6_dongle_sh1107_debug
+    snippet: zmk-usb-logging
 
   # Firmware Reset
   - board: nice_nano_v2
