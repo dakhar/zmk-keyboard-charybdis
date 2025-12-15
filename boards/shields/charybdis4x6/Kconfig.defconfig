@@ -21,7 +21,8 @@ config ZMK_SPLIT_ROLE_CENTRAL
     default n
 config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY
     default n
-    
+config ZMK_USB 
+    default n
 config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING
     default y
 endif
