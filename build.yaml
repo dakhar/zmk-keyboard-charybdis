@@ -8,39 +8,39 @@
 ---
 include:
   # Charybdis without dongle
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_left
     artifact-name: charybdis4x6_left
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_right
     artifact-name: charybdis4x6_right
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_right
     artifact-name: charybdis4x6_right_studio
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
   # Charybdis with dongle
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_right_periph
     artifact-name: charybdis4x6_right_periph
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_dongle
     artifact-name: charybdis4x6_dongle
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_dongle
     artifact-name: charybdis4x6_dongle_studio
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_dongle dongle_screen
     artifact-name: charybdis4x6_dongle_sh1107
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: charybdis4x6_dongle dongle_screen
     artifact-name: charybdis4x6_dongle_sh1107_debug
     cmake-args: -DCONFIG_ZMK_USB_LOGGING=y
 
   # Firmware Reset
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: settings_reset
     format: reset
     artifact-name: reset_nice_nano_v2
