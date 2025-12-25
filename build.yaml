@@ -30,10 +30,15 @@ include:
     shield: charybdis4x6_dongle
     artifact-name: charybdis4x6_dongle_studio
     snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    cmake-args: -DCONFIG_ZMK_STUDIO=y  
   - board: nice_nano_v2
-    shield: charybdis4x6_dongle dongle_screen
-    artifact-name: charybdis4x6_dongle_sh1107
+    shield: charybdis4x6_dongle
+    artifact-name: charybdis4x6_dongle_logging
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_USB_LOGGING=y
+  # - board: nice_nano_v2
+  #   shield: charybdis4x6_dongle dongle_screen
+  #   artifact-name: charybdis4x6_dongle_sh1107
 
   # Firmware Reset
   - board: nice_nano_v2
