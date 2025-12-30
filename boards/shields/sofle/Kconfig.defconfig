@@ -3,7 +3,7 @@
 config UNDERGLOW
     bool
     default n
-config ENCODER
+config ENCODERS
     bool
     default n
 
