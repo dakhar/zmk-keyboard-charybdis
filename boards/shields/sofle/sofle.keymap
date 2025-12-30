@@ -225,8 +225,7 @@
 &kp C_NEXT        &kp C_RW  &kp C_FF   &trans     &trans     &trans                    &trans  &trans     &trans     &trans    &kp INS   &kp F12
 &kp C_PLAY_PAUSE  &kp LEFT  &kp UP     &kp DOWN   &kp RIGHT  &trans                    &trans  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI  &trans
 &kp C_PREVIOUS    &kp HOME  &kp PG_UP  &kp PG_DN  &kp END    &trans  &trans    &trans  &trans  &trans     &trans     &trans    &trans    &trans
-                            &trans     &trans     &trans     &trans  &trans    &trans  &trans  &trans
-                                                                                                   
+                            &trans     &trans     &trans     &trans  &trans    &trans  &trans  &trans     &trans     &trans
             >;
 
             sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp PG_UP PG_DN>;
