@@ -1,11 +1,5 @@
 # Copyright (c) 2020 Ryan Cross
 # SPDX-License-Identifier: MIT
-config UNDERGLOW
-    bool
-    default n
-config ENCODERS
-    bool
-    default n
 
 #####################################
 #####################################
@@ -68,16 +62,9 @@ choice LV_COLOR_DEPTH
 endchoice
 endif # LVGL
 #-----------------------------------------
-if UNDERGLOW
-config ZMK_RGB_UNDERGLOW
-    default y
-endif # UNDERGLOW
-#-----------------------------------------
-if ENCODER
+if EC11
 config EC11_TRIGGER_GLOBAL_THREAD
     default y
-config CONFIG_EC11
-    default y
-endif # ENCODER
+endif # EC11
 #-----------------------------------------
 endif
