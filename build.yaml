@@ -36,33 +36,33 @@ include:
     artifact-name: charybdis4x6_dongle_logging
     snippet: zmk-usb-logging
     cmake-args: -DCONFIG_ZMK_USB_LOGGING=y
-  # Sofle without dongle
+  # sofle-chok without dongle
   - board: nice_nano
-    shield: sofle_left
-    artifact-name: sofle_left
+    shield: sofle-chok_left
+    artifact-name: sofle-chok_left
   - board: nice_nano
-    shield: sofle_left
-    artifact-name: sofle_left_studio
+    shield: sofle-chok_left
+    artifact-name: sofle-chok_left_studio
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
   - board: nice_nano
-    shield: sofle_right
-    artifact-name: sofle_right
-  # Sofle with dongle
+    shield: sofle-chok_right
+    artifact-name: sofle-chok_right
+  # sofle-chok with dongle
   - board: nice_nano
-    shield: sofle_left_periph
-    artifact-name: sofle_left_periph
+    shield: sofle-chok_left_periph
+    artifact-name: sofle-chok_left_periph
   - board: nice_nano
-    shield: sofle_dongle
-    artifact-name: sofle_dongle
+    shield: sofle-chok_dongle
+    artifact-name: sofle-chok_dongle
   - board: nice_nano
-    shield: sofle_dongle
-    artifact-name: sofle_dongle_studio
+    shield: sofle-chok_dongle
+    artifact-name: sofle-chok_dongle_studio
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y  
   - board: nice_nano
-    shield: sofle_dongle
-    artifact-name: sofle_dongle_logging
+    shield: sofle-chok_dongle
+    artifact-name: sofle-chok_dongle_logging
     snippet: zmk-usb-logging
     cmake-args: -DCONFIG_ZMK_USB_LOGGING=y
   # - board: nice_nano_v2

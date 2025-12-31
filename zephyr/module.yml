@@ -3,7 +3,7 @@ build:
   settings:
     board_root: .
 
-name: zmk-keyboard-sofle
+name: zmk-keyboard-sofle-chok
 build:
   settings:
     board_root: .

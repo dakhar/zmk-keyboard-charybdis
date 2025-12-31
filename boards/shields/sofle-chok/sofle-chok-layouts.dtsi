@@ -1,7 +1,7 @@
 #include <physical_layouts.dtsi>
 
 / {
-    sofle_layout: sofle_physical_layout {
+    sofle-chok_layout: sofle-chok_physical_layout {
         compatible = "zmk,physical-layout";
         display-name = "Sofle";
 
