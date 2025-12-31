@@ -1,5 +1,5 @@
 file_format: "1"
-id: sofle-chok
+id: sofle_chok
 name: Sofle
 type: shield
 url: https://github.com/josefadamcik/SofleKeyboard
@@ -13,7 +13,7 @@ features:
   - studio
   - dongle
 siblings:
-  - sofle-chok_left
-  - sofle-chok_right
-  - sofle-chok_left_periph
-  - sofle-chok_dongle
+  - sofle_chok_left
+  - sofle_chok_right
+  - sofle_chok_left_periph
+  - sofle_chok_dongle

@@ -5,7 +5,7 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
-#include "sofle-chok-layouts.dtsi"
+#include "sofle_chok-layouts.dtsi"
 
 &sofle_chok_layout {
     transform = <&default_transform>;

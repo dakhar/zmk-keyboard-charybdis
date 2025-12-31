@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "sofle-chok.dtsi"
+#include "sofle_chok.dtsi"
 
 &default_transform {
     col-offset = <6>;

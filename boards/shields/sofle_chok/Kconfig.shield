@@ -1,0 +1,11 @@
+config SHIELD_SOFLE_CHOK_LEFT
+	def_bool $(shields_list_contains,sofle_chok_left)
+
+config SHIELD_SOFLE_CHOK_LEFT_PERIPH
+	def_bool $(shields_list_contains,sofle_chok_left_periph)
+
+config SHIELD_SOFLE_CHOK_RIGHT
+	def_bool $(shields_list_contains,sofle_chok_right)
+
+config SHIELD_SOFLE_CHOK_DONGLE
+	def_bool $(shields_list_contains,sofle_chok_dongle)
